@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: react-go-webapp-frontend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: react-go-webapp-frontend
+  template:
+    metadata:
+      labels:
+        app: react-go-webapp-frontend
+    spec:
+      containers:
+      - name: react-go-webapp-frontend
+        image: maxnickerson/react-go-webapp-frontend:1.0.0-72
+        ports:
+        - containerPort: 3000
+        resources:
+          limits:
+            memory: "256Mi"
+            cpu: "500m"
