@@ -27,14 +27,16 @@ pipeline {
             }
         }
 
-        stage('Push the changed deployment files to Git') {
+        stage('Commit Changes') {
             steps {
-                sh '''
-                    git config --global user.name "MaxNickerson"
-                    git config --global user.email "bananamanbomber@gmail.com"
-                    git add backend-deployment.yaml frontend-deployment.yaml
-                    git commit -m "Updated Deployment Manifests || echo "No changes to commit
-                '''
+                script {
+                    sh 'git config --global user.name "MaxNickerson"'
+                    sh 'git config --global user.email "bananamanbomber@gmail.com"'
+                    sh '''
+                        git add backend-deployment.yaml frontend-deployment.yaml
+                        git commit -m "Updated Deployment Manifests" || echo "No changes to commit"
+                    '''
+                }
             }
         }
 
