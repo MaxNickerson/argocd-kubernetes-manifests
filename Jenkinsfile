@@ -6,11 +6,6 @@ pipeline {
         APP_NAME = "argocd-kubernetes-manifests"
     }
     stages {
-        stage('Cleanup Workspace') {
-            steps {
-                cleanWs()
-            }
-        }
         stage('Checkout from SCM') {
             steps {
                 git branch: 'main', credentialsId: 'github-pat', url: 'https://github.com/MaxNickerson/argocd-kubernetes-manifests'
@@ -40,10 +35,27 @@ pipeline {
                     git add backend-deployment.yaml frontend-deployment.yaml
                     git commit -m "Updated Deployment Manifests"
                 '''
-                withCredentials([usernamePassword(credentialsId: 'github-pat', gitToolName: 'Default')]) {
-                    sh 'git push https://github.com/MaxNickerson/argocd-kubernetes-manifests main'
+
+                if (changes.contains("No changes to commit")) {
+                        echo "No changes to commit"
+                    } else {
+                        echo "Changes committed"
+                    }
+            }
+        }
+
+        stage('Push Changes') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'github-pat', passwordVariable: 'GITHUB_TOKEN', usernameVariable: 'GITHUB_USER')]) {
+                    sh 'git push https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/MaxNickerson/argocd-kubernetes-manifests.git main'
                 }
             }
+        
+
+    }
+    post {
+        always {
+            cleanWs()
         }
     }
 }
