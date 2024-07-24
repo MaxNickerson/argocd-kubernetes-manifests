@@ -50,6 +50,7 @@ pipeline {
                     sh 'git push https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/MaxNickerson/argocd-kubernetes-manifests.git main'
                 }
             }
+        }
         
 
     }
