@@ -33,14 +33,8 @@ pipeline {
                     git config --global user.name "MaxNickerson"
                     git config --global user.email "bananamanbomber@gmail.com"
                     git add backend-deployment.yaml frontend-deployment.yaml
+                    git commit -m "Updated Deployment Manifests || echo "No changes to commit
                 '''
-                def changes = sh(script: 'git commit -m "Updated Deployment Manifests" || echo "No changes to commit"', returnStdout: true).trim()
-
-                if (changes.contains("No changes to commit")) {
-                        echo "No changes to commit"
-                } else {
-                        echo "Changes committed"
-                    }
             }
         }
 
