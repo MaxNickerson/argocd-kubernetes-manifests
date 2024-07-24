@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Checkout from SCM') {
             steps {
-                git branch: 'main', credentialsId: 'github-pat', url: 'https://github.com/MaxNickerson/argocd-kubernetes-manifests'
+                git branch: 'main', url: 'https://github.com/MaxNickerson/argocd-kubernetes-manifests'
             }
         }
         stage('Update the Deployment Tags') {
