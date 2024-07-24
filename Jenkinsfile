@@ -42,7 +42,7 @@ pipeline {
 
         stage('Push Changes') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'github-pat', passwordVariable: 'GITHUB_TOKEN', usernameVariable: 'GITHUB_USER')]) {
+                withCredentials([usernamePassword(credentialsId: 'github-username-password', passwordVariable: 'GITHUB_TOKEN', usernameVariable: 'GITHUB_USER')]) {
                     sh 'git push https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/MaxNickerson/argocd-kubernetes-manifests.git main'
                 }
             }
