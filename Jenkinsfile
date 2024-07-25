@@ -2,6 +2,9 @@ pipeline {
     agent {
         label 'jenkins-agent'
     }
+    parameters {
+        string(name: 'IMAGE_TAG', defaultValue: '', description: 'Latest Docker Image Tag')
+    }
     environment {
         APP_NAME = "argocd-kubernetes-manifests"
     }
@@ -17,12 +20,13 @@ pipeline {
                     # frontend
                     cat frontend-deployment.yaml
                     sed -i "s|APP_NAME|${APP_NAME}|g; s|IMAGE_TAG|${IMAGE_TAG}|g" frontend-deployment.yaml
-
+                    echo "Updated frontend-deployment.yaml:"
                     cat frontend-deployment.yaml
 
                     # backend
                     cat backend-deployment.yaml
                     sed -i "s|APP_NAME|${APP_NAME}|g; s|IMAGE_TAG|${IMAGE_TAG}|g" backend-deployment.yaml
+                    echo "Updated backend-deployment.yaml:"
                     cat backend-deployment.yaml
                 '''
             }
