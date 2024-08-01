@@ -17,17 +17,16 @@ pipeline {
         stage('Update the Deployment Tags') {
             steps {
                 sh '''
-                    # frontend
-                    cat frontend-deployment.yaml
-                    sed -i "s|APP_NAME|${APP_NAME}|g; s|IMAGE_TAG|${IMAGE_TAG}|g" frontend-deployment.yaml
+                    echo "Updating frontend-deployment.yaml with IMAGE_TAG=${IMAGE_TAG}"
+                    sed -i "s|{{IMAGE_TAG}}|${IMAGE_TAG}|g" frontend-deployment.yaml
                     echo "Updated frontend-deployment.yaml:"
                     cat frontend-deployment.yaml
 
-                    # backend
-                    cat backend-deployment.yaml
-                    sed -i "s|APP_NAME|${APP_NAME}|g; s|IMAGE_TAG|${IMAGE_TAG}|g" backend-deployment.yaml
+                    echo "Updating backend-deployment.yaml with IMAGE_TAG=${IMAGE_TAG}"
+                    sed -i "s|{{IMAGE_TAG}}|${IMAGE_TAG}|g" backend-deployment.yaml
                     echo "Updated backend-deployment.yaml:"
                     cat backend-deployment.yaml
+
                 '''
             }
         }
