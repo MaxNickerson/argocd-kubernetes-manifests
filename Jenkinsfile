@@ -18,12 +18,12 @@ pipeline {
             steps {
                 sh '''
                     echo "Updating frontend-deployment.yaml with IMAGE_TAG=${IMAGE_TAG}"
-                    sed -i "s|{{IMAGE_TAG}}|${IMAGE_TAG}|g" frontend-deployment.yaml
+                    sed -i "s|image: maxnickerson/react-go-webapp-frontend:.*|image: maxnickerson/react-go-webapp-frontend:${IMAGE_TAG}|g" frontend-deployment.yaml
                     echo "Updated frontend-deployment.yaml:"
                     cat frontend-deployment.yaml
 
                     echo "Updating backend-deployment.yaml with IMAGE_TAG=${IMAGE_TAG}"
-                    sed -i "s|{{IMAGE_TAG}}|${IMAGE_TAG}|g" backend-deployment.yaml
+                    sed -i "s|image: maxnickerson/react-go-webapp-backend:.*|image: maxnickerson/react-go-webapp-backend:${IMAGE_TAG}|g" backend-deployment.yaml
                     echo "Updated backend-deployment.yaml:"
                     cat backend-deployment.yaml
 
