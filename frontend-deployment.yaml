@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: react-go-webapp-frontend
-        image: maxnickerson/react-go-webapp-frontend:{{IMAGE_TAG}}
+        image: maxnickerson/react-go-webapp-frontend:1.0.0-97
         ports:
         - containerPort: 3000
         resources:
